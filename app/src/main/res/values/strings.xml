@@ -3,4 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="details_page">Details Page</string>
+    <string name="filter_by_user_id">filter By User ID</string>
+    <string name="user_id">user id</string>
+    <string name="tags">Tags:</string>
 </resources>
