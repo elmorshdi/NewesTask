@@ -15,10 +15,10 @@ interface Dao {
 
 
     @Query("SELECT * FROM $POST_TABLE_NAME WHERE id=:id LIMIT 1")
-    fun getPostById(id: Int): Post
+  suspend  fun getPostById(id: Int): Post
 
     @Query("SELECT * FROM $POST_TABLE_NAME WHERE userId  LIKE :id")
-    fun filterByUser(id: Int): List<Post>
+   suspend fun filterByUser(id: Int): List<Post>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(posts: List<Post>)

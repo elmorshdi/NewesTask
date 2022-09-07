@@ -1,7 +1,7 @@
-package com.elmorshdi.newestask.di
+package com.elmorshdi.newestask.doman.di
 
 import com.elmorshdi.newestask.data.repository.Repository
-import com.elmorshdi.newestask.doman.RepositoryImp
+import com.elmorshdi.newestask.doman.repository.RepositoryImp
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

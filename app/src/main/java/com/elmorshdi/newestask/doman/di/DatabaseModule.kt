@@ -1,4 +1,4 @@
-package com.elmorshdi.newestask.di
+package com.elmorshdi.newestask.doman.di
 
 import android.content.Context
 import androidx.room.Room
@@ -31,7 +31,5 @@ object DatabaseModule {
     @Provides
     fun provideDao(appDatabase: AppDatabase): Dao = appDatabase.getDao()
 
-    @Singleton
-    @Provides
-    fun provideRemoteKeyDao(appDatabase: AppDatabase): RemoteKeyDao = appDatabase.getRemoteKeyDao()
+
 }

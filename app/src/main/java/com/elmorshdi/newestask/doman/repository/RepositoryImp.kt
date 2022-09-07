@@ -1,4 +1,4 @@
-package com.elmorshdi.newestask.doman
+package com.elmorshdi.newestask.doman.repository
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
@@ -28,6 +28,11 @@ class RepositoryImp @OptIn(ExperimentalPagingApi::class)
 
     override suspend fun getPostById(id: Int): Post {
         return dao.getPostById(id = id)
+    }
+
+    override suspend fun filterByUser(id: Int): List<Post> {
+
+        return dao.filterByUser(id)
     }
 
 

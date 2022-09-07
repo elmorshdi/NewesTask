@@ -1,4 +1,4 @@
-package com.elmorshdi.newestask.di
+package com.elmorshdi.newestask.doman.di
 
 import com.elmorshdi.newestask.data.localdata.AppDatabase
 import com.elmorshdi.newestask.data.network.ApiService

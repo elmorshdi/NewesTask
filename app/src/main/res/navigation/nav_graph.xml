@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_homeFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -22,5 +25,13 @@
         <argument
             android:name="id"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.elmorshdi.newestask.view.fragments.filter.PostFragment"
+        android:label="PostFragment" >
+        <action
+            android:id="@+id/action_postFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
     </fragment>
 </navigation>

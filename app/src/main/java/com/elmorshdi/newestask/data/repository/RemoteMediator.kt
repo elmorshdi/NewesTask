@@ -16,23 +16,14 @@ import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class RemoteMediator @Inject constructor(
-    private val database: AppDatabase,
-    private val articlesDataSource: ApiService,
+    private val db: AppDatabase,
+    private val apiService: ApiService,
 ) : RemoteMediator<Int, Post>() {
-    private val articlesDao = database.getDao()
+    private val dao = db.getDao()
 
     override suspend fun initialize(): InitializeAction {
         return InitializeAction.LAUNCH_INITIAL_REFRESH
-        /*val cacheTimeout = TimeUnit.HOURS.convert(1, TimeUnit.MILLISECONDS)
-        return if (System.currentTimeMillis() - articlesDao.lastUpdated() >= cacheTimeout) {
-            // Cached data is up-to-date, so there is no need to re-fetch from network.
-            InitializeAction.SKIP_INITIAL_REFRESH
-        } else {
-            // Need to refresh cached data from network; returning LAUNCH_INITIAL_REFRESH here
-            // will also block ArticlesRemoteMediator's APPEND and PREPEND from running until REFRESH
-            // succeeds.
-            InitializeAction.LAUNCH_INITIAL_REFRESH
-        }*/
+
     }
 
     override suspend fun load(
@@ -52,16 +43,16 @@ class RemoteMediator @Inject constructor(
                 }
             }
 
-            val response = articlesDataSource.getAllPosts(loadKey ?: 0, 10)
+            val response = apiService.getAllPosts(loadKey ?: 0, 10)
 
             if (response.isSuccessful) {
                 val articlesResponse = response.body()!!
-                database.withTransaction {
+                db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        articlesDao.deleteByQuery()
+                        dao.deleteAllPosts()
                     }
 
-                    articlesDao.insertAll(articlesResponse.posts)
+                    dao.insertAll(articlesResponse.posts)
                 }
             }
 

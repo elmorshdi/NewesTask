@@ -2,51 +2,44 @@ package com.elmorshdi.newestask.view.fragments
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.*
-import com.elmorshdi.newestask.data.localdata.dao.Dao
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.elmorshdi.newestask.data.localdata.model.Post
-import com.elmorshdi.newestask.doman.RepositoryImp
+import com.elmorshdi.newestask.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@OptIn(ExperimentalPagingApi::class)
 @HiltViewModel
 class ShardViewModel
 @Inject constructor(
-    private val postRemoteMediator: NewsPageKeyedRemoteMediator,
-    private val repository: RepositoryImp,
-    private val dao: Dao
+    private val repository: Repository,
 ) : ViewModel() {
 
 
-    @ExperimentalPagingApi
-    val pager = Pager(
-        PagingConfig(pageSize = 10),
-        remoteMediator = postRemoteMediator
-    ) {
-        dao.getAllPosts()
-    }.flow
+    val post: StateFlow<Post?>
+        get() = _post
+    private val _post: MutableStateFlow<Post?> = MutableStateFlow(null)
 
-    val pp = Pager(
-        config = PagingConfig(10, enablePlaceholders = false),
-        remoteMediator = postRemoteMediator
-    ) {
-        dao.getAllPosts()
-    }.flow
-    private val _posts: MutableSharedFlow<PagingData<Post>> = MutableSharedFlow()
-    val posts: SharedFlow<PagingData<Post>>
-        get() = _posts
+    private val _filterPostsFlow: MutableSharedFlow<List<Post>> = MutableSharedFlow()
+    val filterPostsFlow: SharedFlow<List<Post>>
+        get() = _filterPostsFlow
 
+    suspend fun getPosts(): Flow<PagingData<Post>> =
+        repository.getPosts().flow.cachedIn(viewModelScope)
 
-    suspend fun gg(): Flow<PagingData<Post>> = repository.getPosts().flow.cachedIn(viewModelScope)
+    suspend fun getPostById(id: Int) {
+        viewModelScope.launch {
 
-    suspend fun getPosts() {
-        _posts.emitAll(repository.getPosts().flow.cachedIn(viewModelScope))
-
+            _post.emit(repository.getPostById(id))
+        }
     }
+
+    suspend fun getFilteredList(id: Int) {
+        val filtered = repository.filterByUser(id)
+        _filterPostsFlow.emit(filtered)
+    }
+
 
 }

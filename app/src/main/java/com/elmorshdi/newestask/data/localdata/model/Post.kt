@@ -13,7 +13,7 @@ data class Post(
     @PrimaryKey
     val id: Int?,
     val reactions: Int?,
-    val tags: List<String?>?,
+    val tags: List<String>?,
     val title: String?,
     val userId: Int?
 )

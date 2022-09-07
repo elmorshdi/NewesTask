@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Android/New/NewesTask/app/src/main/res/drawable/ic_baseline_filter_list_24.xml" value="0.117" />
         <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/activity_main.xml" value="0.16822916666666668" />
+        <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/fragment_details.xml" value="0.1" />
         <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/fragment_detils.xml" value="0.25" />
-        <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/fragment_home.xml" value="0.22" />
+        <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/fragment_home.xml" value="0.17298578199052134" />
+        <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/fragment_item_list.xml" value="0.25" />
         <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/item.xml" value="0.33" />
         <entry key="..\:/Android/New/NewesTask/app/src/main/res/layout/item_list_footer.xml" value="0.18229166666666666" />
       </map>
